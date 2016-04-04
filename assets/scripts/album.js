@@ -29,6 +29,19 @@ var albumPicasso = {
      ]
  };
 
+ var albumCarter = {
+    title: 'Carter',
+    artist: 'John Carter',
+    label: 'Carter Inc',
+    year: '2016',
+    albumArtUrl: 'https://cdn-photos.bloc.io/medium/2310666/11209715_10153244685594547_2004900678986567362_n.jpg?1444695805',
+    songs: [
+        {title: 'I use rawr way too much because it only requires one hand', duration: '1:00'},
+        {title: 'Heyaooooooo', duration: '1:00'},
+        {title: 'I also use sex too much as variable names', duration: '1:00'}
+    ]
+ };
+
  var createSongRow = function(songNumber, songName, songLength){
     var template = 
         '<tr class="album-view-song-item">'
@@ -56,8 +69,31 @@ var albumPicasso = {
     for(var i = 0; i < album.songs.length; i++){
         albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
     }
+
+     
  };
 
+var albumImage = document.getElementsByClassName('album-cover-art')[0]
+
+
  window.onload = function() {
-    setCurrentAlbum(albumMarconi)
+    setCurrentAlbum(albumMarconi);
+    var listArray = [albumMarconi, albumCarter, albumPicasso];
+    var index = 0;
+    albumImage.addEventListener("click", function(event){
+        setCurrentAlbum((listArray[index]));
+        index ++;
+        if (index == listArray.length){
+            index = 0;
+        }
+    })
  }
+
+
+ var toggleAlbum = function(){
+    
+ }
+
+
+
+
