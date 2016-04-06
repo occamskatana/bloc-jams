@@ -60,11 +60,20 @@ var updateSeekBarWhileSongPlays = function() {
         currentSoundFile.bind('timeupdate', function(event){
             var seekBarFillRatio = this.getTime() / this.getDuration();
             var $seekbar = $('.seek-control .seek-bar');
-
+            setCurrentTimeInPlayerBar(filterTimeCode(this.getTime()));
             updateSeekPercentage($seekbar, seekBarFillRatio);
         });
     }
 };
+
+var filterTimeCode = function(timeInSeconds) {
+   var seconds = parseFloat(timeInSeconds);
+
+   minutes = Math.floor(seconds / 60);
+   seconds = Math.floor(seconds % 60);
+
+   return minutes + ":" + (seconds < 10 ? "0" : "") + seconds
+}
 
 
 
@@ -194,6 +203,14 @@ var updateSeekBarWhileSongPlays = function() {
         } 
  }
 
+ var setCurrentTimeInPlayerBar = function(currentTime) {
+    $('.current-time').text(currentTime)
+ }
+
+ var setTotalTimeInPlayerBar = function(totalTime) {
+    $('.total-time').append(totalTime)
+ }
+
 
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
 var songRows = document.getElementsByClassName('album-view-song-item');
@@ -289,6 +306,7 @@ var updatePlayerBarSong = function(){
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
+    setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum.duration));
 }
 
 
